@@ -1,11 +1,13 @@
 // server.js
+const dash = require('dash-core-components');
+const html = require('html');
 const express = require('express');
 const fs = require('fs');
 const app = express();
 const port = 8051;
 
 app.use(express.static('public'));
-const filePath = 'data.json';
+const filePath = '../data.json';
 
 
 fs.readFile(filePath, 'utf8', (err, data) => {
@@ -23,6 +25,8 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     return res.json(data);
 });
 
+app = dash.Dash(__name__)
+app.layout = html.Div("display.html",status="update")
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
